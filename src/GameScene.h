@@ -7,6 +7,7 @@
 #include "GameNodeContainer.h"
 #include "GameOverLayer.h"
 #include "GameScoreLayer.h"
+#include "GamePauseLayer.h"
 
 USING_NS_CC;
 
@@ -21,5 +22,6 @@ public:
 	void gameOver();
 	void exitGame();
 	void pauseGame();
+	void backGame();
 };
 

@@ -31,7 +31,7 @@ bool GameScene::init(){
 	this->addChild(container);
 
 	// 直接结束，测试GameOverLayer专用
-	auto result = SimpleButton::create(60, "Pause", "黑体", 30, CC_CALLBACK_0(GameScene::gameOver, this));
+	auto result = SimpleButton::create(60, "Pause", "黑体", 30, CC_CALLBACK_0(GameScene::pauseGame, this));
 	result->setPosition(VISIBLE_SIZE.width - 60, 60);
 	this->addChild(result);
 
@@ -51,10 +51,14 @@ void GameScene::gameOver(){
 }
 
 void GameScene::pauseGame(){
-	auto gameOverLayer = GameOverLayer::create();
+	auto gamePauseLayer = gamePauseLayer::create();
 	Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(container);
-	gameOverLayer->setPosition(VISIBLE_SIZE.width / 2, VISIBLE_SIZE.height / 2);
-	this->addChild(gameOverLayer);
+	gamePauseLayer->setPosition(VISIBLE_SIZE.width / 2, VISIBLE_SIZE.height / 2);
+	this->addChild(gamePauseLayer);
+}
+
+void GameScene::backGame(){
+	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(container);
 }
 
 Scene * GameScene::createScene(){
