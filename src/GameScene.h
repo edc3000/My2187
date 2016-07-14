@@ -1,5 +1,12 @@
 #pragma once
 #include "cocos2d.h"
+#include "GameDefine.h"
+#include "GridNode.h" 
+#include "SimpleButton.h"
+#include "GameBackgroundLayer.h"
+#include "GameNodeContainer.h"
+#include "GameOverLayer.h"
+#include "GameScoreLayer.h"
 
 USING_NS_CC;
 
@@ -10,5 +17,9 @@ public:
 	CREATE_FUNC(GameScene);
 	static Scene * createScene();
 
+	void restart();
+	void gameOver();
+	void exitGame();
+	void pauseGame();
 };
 

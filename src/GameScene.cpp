@@ -8,21 +8,53 @@ bool GameScene::init(){
 		return false;
 	}
 
-	auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	//纯色背景
+	auto layerColor = LayerColor::create(Color4B(204, 204, 204, 255), VISIBLE_SIZE.width, VISIBLE_SIZE.height);
+	layerColor->setPosition(Point::ZERO);
+	this->addChild(layerColor);
 
+	//游戏的格子的背景
+	auto bg = GameBackgroundLayer::create();
+	bg->setPosition(VISIBLE_SIZE.width / 2, VISIBLE_SIZE.height / 2);
+	bg->setScale(1.1f);
+	this->addChild(bg);
 
-	auto label = Label::createWithTTF("My2187", "fonts/Marker Felt.ttf", 24);
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
-    this->addChild(label, 1);
+	//分数
+	scoreLayer = GameScoreLayer::create();
+	scoreLayer->setPosition(Point::ZERO);
+	this->addChild(scoreLayer);
 
+	//格子
+	container = GameNodeContainer::create();
+	container->setPosition(VISIBLE_SIZE.width / 2, VISIBLE_SIZE.height / 2);
+	container->setScoreLayer(scoreLayer);
+	this->addChild(container);
 
-    auto sprite = Sprite::create("HelloWorld.png");
-    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-    this->addChild(sprite, 0);
+	// 直接结束，测试GameOverLayer专用
+	auto result = SimpleButton::create(60, "Pause", "黑体", 30, CC_CALLBACK_0(GameScene::gameOver, this));
+	result->setPosition(VISIBLE_SIZE.width - 60, 60);
+	this->addChild(result);
 
 	return true;
+}
+
+void GameScene::restart(){
+	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(container);
+	container->restart();
+}
+
+void GameScene::gameOver(){
+	auto gameOverLayer = GameOverLayer::create();
+	Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(container);
+	gameOverLayer->setPosition(VISIBLE_SIZE.width / 2, VISIBLE_SIZE.height / 2);
+	this->addChild(gameOverLayer);
+}
+
+void GameScene::pauseGame(){
+	auto gameOverLayer = GameOverLayer::create();
+	Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(container);
+	gameOverLayer->setPosition(VISIBLE_SIZE.width / 2, VISIBLE_SIZE.height / 2);
+	this->addChild(gameOverLayer);
 }
 
 Scene * GameScene::createScene(){
@@ -30,4 +62,10 @@ Scene * GameScene::createScene(){
 	auto layer = GameScene::create();
 	scene->addChild(layer);
 	return scene;
+}
+
+void GameScene::exitGame()
+{
+	this->stopAllActions();
+	Director::getInstance()->end();
 }
