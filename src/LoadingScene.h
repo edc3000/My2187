@@ -12,6 +12,7 @@ public:
 	CREATE_FUNC(LoadingScene);
 	static Scene * createScene();
 
+	void showStartGameButton();
 	void gotoStartScene();
 
 private:

@@ -5,17 +5,19 @@ bool LoadingScene::init(){
 		return false;
 	}
 
-	//ç”»ä¸€ä¸ªçº¯è‰²çš„èƒŒæ™¯å½“åšä¸»èƒŒæ™¯
+	//»­Ò»¸ö´¿É«µÄ±³¾°
 	auto layerColor = LayerColor::create(Color4B(204, 204, 204, 255), VISIBLE_SIZE.width, VISIBLE_SIZE.height);
 	layerColor->setPosition(Point::ZERO);
 	this->addChild(layerColor);
 
-	//ä½äºŽå±å¹•ä¸­é—´çš„â€œloadingâ€å­—æ ·
-	_lblLoading = Label::createWithSystemFont("Loading...", "é»‘ä½“", 20);
+	//ÆÁÄ»ÖÐ¼äµÄ¡°loading¡±(FlashÖÐµÄTextField£©
+	_lblLoading = Label::createWithSystemFont("Loading...", "ºÚÌå", 20);
 	_lblLoading->setPosition(Point(VISIBLE_SIZE.width / 2, VISIBLE_SIZE.height / 2));
 	_lblLoading->setTextColor(Color4B(0, 0, 0, 255));
 	this->addChild(_lblLoading, 1);
 
+	//Æô¶¯Ò»¸ö0.5ÃëµÄµ÷¶È£¨FlashÖÐ¿ÉÒÔÓÃTimerÀ´ÊµÏÖ£©
+	this->scheduleOnce(CC_CALLBACK_0(LoadingScene::showStartGameButton, this), 0.5, "showStartGameButton");
 
 	return true;
 }
@@ -27,7 +29,15 @@ Scene * LoadingScene::createScene(){
 	return scene;
 }
 
+void LoadingScene::showStartGameButton(){
+	this->removeChild(_lblLoading);
+
+	auto button = SimpleButton::create(60, "Start", "ºÚÌå", 20, CC_CALLBACK_0(LoadingScene::gotoStartScene, this));
+	button->setPosition(VISIBLE_SIZE.width / 2, VISIBLE_SIZE.height / 2);
+	this->addChild(button);
+}
+
 void LoadingScene::gotoStartScene(){
-	//åˆ‡å±ï¼Œä»Žå³è¾¹æ»‘åŠ¨è¿›å…¥
+	//ÇÐÆÁ£¬´ÓÓÒ±ß»¬¶¯½øÈë
 	Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5, GameScene::createScene()));
 }
