@@ -1,0 +1,1 @@
+The folder includes all the documents for the game
