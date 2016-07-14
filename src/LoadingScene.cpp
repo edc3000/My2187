@@ -5,13 +5,13 @@ bool LoadingScene::init(){
 		return false;
 	}
 
-	//»­Ò»¸ö´¿É«µÄ±³¾°
+	//ç”»ä¸€ä¸ªçº¯è‰²çš„èƒŒæ™¯å½“åšä¸»èƒŒæ™¯
 	auto layerColor = LayerColor::create(Color4B(204, 204, 204, 255), VISIBLE_SIZE.width, VISIBLE_SIZE.height);
 	layerColor->setPosition(Point::ZERO);
 	this->addChild(layerColor);
 
-	//ÆÁÄ»ÖÐ¼äµÄ¡°loading¡±(FlashÖÐµÄTextField£©
-	_lblLoading = Label::createWithSystemFont("Loading...", "ºÚÌå", 20);
+	//ä½äºŽå±å¹•ä¸­é—´çš„â€œloadingâ€å­—æ ·
+	_lblLoading = Label::createWithSystemFont("Loading...", "é»‘ä½“", 20);
 	_lblLoading->setPosition(Point(VISIBLE_SIZE.width / 2, VISIBLE_SIZE.height / 2));
 	_lblLoading->setTextColor(Color4B(0, 0, 0, 255));
 	this->addChild(_lblLoading, 1);
@@ -28,6 +28,6 @@ Scene * LoadingScene::createScene(){
 }
 
 void LoadingScene::gotoStartScene(){
-	//ÇÐÆÁ£¬´ÓÓÒ±ß»¬¶¯½øÈë
+	//åˆ‡å±ï¼Œä»Žå³è¾¹æ»‘åŠ¨è¿›å…¥
 	Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5, GameScene::createScene()));
 }
