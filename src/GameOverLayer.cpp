@@ -9,8 +9,13 @@ bool GameOverLayer::init(){
 	bg->setPosition(VISIBLE_SIZE.width / -2, VISIBLE_SIZE.height / -2);
 	this->addChild(bg);
 
-	auto button = SimpleButton::create(80, "Restart", "ºÚÌå", 40, CC_CALLBACK_0(GameOverLayer::onClickRestart, this));
-	this->addChild(button);
+	auto restartButton = SimpleButton::create(80, "Restart", "ºÚÌå", 40, CC_CALLBACK_0(GameOverLayer::onClickRestart, this));
+	restartButton->setPosition(0, VISIBLE_SIZE.height / 5);
+	this->addChild(restartButton);
+
+	auto exitButton = SimpleButton::create(80, "Exit", "ºÚÌå", 40, CC_CALLBACK_0(GameOverLayer::onClickExit, this));
+	exitButton->setPosition(0, -VISIBLE_SIZE.height / 5);
+	this->addChild(exitButton);
 
 	this->setAnchorPoint(Point::ANCHOR_MIDDLE);
 
@@ -19,5 +24,11 @@ bool GameOverLayer::init(){
 
 void GameOverLayer::onClickRestart(){
 	((GameScene *)this->getParent())->restart();
-	this->getParent()->removeChild(this);
+	this->removeFromParent();
+}
+
+void GameOverLayer::onClickExit()
+{
+	((GameScene *)this->getParent())->ExitGame();
+	this->removeFromParent();
 }

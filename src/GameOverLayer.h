@@ -15,5 +15,6 @@ public:
 	CREATE_FUNC(GameOverLayer);
 private:
 	void onClickRestart();
+	void onClickExit();
 };
 
