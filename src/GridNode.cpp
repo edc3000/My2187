@@ -41,6 +41,26 @@ void GridNode::updateNum(int num){
 	refreshView();
 }
 
+//更新颜色，
+void GridNode::refreshView(){
+	_lblNum->setString(StringUtils::format("%d", _num));
+	if(_currentState == GridState::SELECTED){
+		_bg2->setVisible(true);
+		_bg2->updateBgColor(BG_COLOR_SELECTED);
+		_bg1->updateSideLen(GRID_SIDE_LEN - 6);
+	}else if(_currentState == GridState::EXTENDED){
+		_bg2->setVisible(true);
+		_bg2->updateBgColor(BG_COLOR_EXTENDED);
+		_bg1->updateSideLen(GRID_SIDE_LEN - 6);
+	}else{
+		_bg2->setVisible(false);
+		_bg1->updateSideLen(GRID_SIDE_LEN);
+	}
+
+	_bg1->updateBgColor(GameHelper::getInstance()->getColorByNum(_num));
+	_lblNum->setTextColor(GameHelper::getInstance()->getFontColorByNum(_num));
+	_lblNum->setSystemFontSize(GameHelper::getInstance()->getFontSizeByNum(_num));
+}
 
 void GridNode::setRowAndCol(int row, int col){
 	_row = row;
@@ -48,7 +68,17 @@ void GridNode::setRowAndCol(int row, int col){
 	this->setPosition(getPositionByRowAndCol(row, col));
 }
 
+//飞过去的动画
+void GridNode::moveTo(int row, int col){
+	auto moveTo = MoveTo::create(0.5f, getPositionByRowAndCol(row, col));
+	auto callback = CallFuncN::create(CC_CALLBACK_0(GridNode::afterMoveToMovie, this));
+	auto sequence = Sequence::create(moveTo, callback, NULL);
+	this->runAction(sequence);
+}
 
+void GridNode::afterMoveToMovie(){
+	this->getParent()->removeChild(this);
+}
 
 Point GridNode::getPositionByRowAndCol(int row, int col){
 	if(row % 2 == 0){

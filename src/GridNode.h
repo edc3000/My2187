@@ -29,6 +29,8 @@ public:
 
 	//设置格子的位置
 	void setRowAndCol(int row, int col);
+	//移动到某个位置，有动画
+	void moveTo(int row, int col);
 
 	//设置格子的状态，具体见GridState
 	void changeState(GridState state);
@@ -54,6 +56,8 @@ private:
 
 	GridState _currentState;
 
+
+	void refreshView();
 	Point getPositionByRowAndCol(int row, int col);
 	void afterMoveToMovie();
 
