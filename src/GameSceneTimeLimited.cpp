@@ -1,4 +1,7 @@
 #include "GameSceneTimeLimited.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 bool GameSceneTimeLimited::init(){
 
@@ -23,7 +26,7 @@ bool GameSceneTimeLimited::init(){
 	lblTimerTitle->setPosition(_timer->getPositionX(), _timer->getPositionY() + 30);
 	this->addChild(lblTimerTitle);
 
-	schedule(schedule_selector(GameSceneTimeLimited::updateLeftTime));
+	schedule(schedule_selector(GameSceneTimeLimited::updateLeftTime), 0.5f);
 
 	return true;
 }
@@ -57,33 +60,28 @@ void GameSceneTimeLimited::restart()
 	__super::restart();
 	setLeftTime(60);
 	_timer->setString(StringUtils::format("%.1f", _leftTime));
-	schedule(schedule_selector(GameSceneTimeLimited::updateLeftTime));
-	log("time limited scene restart");
+	schedule(schedule_selector(GameSceneTimeLimited::updateLeftTime), 0.5f);
 }
 
 void GameSceneTimeLimited::gameOver()
 {
 	__super::gameOver();
 	unschedule(schedule_selector(GameSceneTimeLimited::updateLeftTime));
-	log("time limited scene");
 }
 
 void GameSceneTimeLimited::exitGame()
 {
 	__super::exitGame();
-	log("time limited scene");
 }
 
 void GameSceneTimeLimited::pauseGame()
 {
 	__super::pauseGame();
 	unschedule(schedule_selector(GameSceneTimeLimited::updateLeftTime));
-	log("time limited scene");
 }
 
 void GameSceneTimeLimited::backGame()
 {
 	__super::backGame();
-	schedule(schedule_selector(GameSceneTimeLimited::updateLeftTime));
-	log("time limited scene");
+	schedule(schedule_selector(GameSceneTimeLimited::updateLeftTime), 0.5f);
 }

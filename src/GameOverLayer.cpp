@@ -1,5 +1,8 @@
 #include "GameOverLayer.h"
 #include "LoadingScene.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 bool GameOverLayer::init(){
 	if(!Layer::init()){ 
@@ -29,6 +32,7 @@ bool GameOverLayer::init(){
 
 void GameOverLayer::onClickRestart(){
 	((GameScene *)this->getParent())->restart();
+	SimpleAudioEngine::getInstance()->playEffect("replaceScene.mp3");
 	this->removeFromParent();
 }
 
@@ -40,5 +44,6 @@ void GameOverLayer::onClickExit()
 
 void GameOverLayer::onClickMenu()
 {
+	SimpleAudioEngine::getInstance()->playEffect("replaceScene.mp3");
 	Director::getInstance()->replaceScene(TransitionSlideInL::create(0.5, LoadingScene::createScene()));
 }
