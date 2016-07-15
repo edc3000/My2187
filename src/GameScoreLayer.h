@@ -2,7 +2,7 @@
 #include "cocos2d.h"
 #include "Hexagon.h"
 #include "GameDefine.h"
-#include "LocalStore.h"  
+#include "LocalStore.h"
 
 USING_NS_CC;
 
