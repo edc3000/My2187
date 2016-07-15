@@ -1,5 +1,8 @@
 #include "GameNodeContainer.h"
- 
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
+
 //六向的地图，每个点有六个方向扩展，x的值为奇数和偶数分开处理。并且游戏中，某些点是不用的，需要排除。
 int exceptNode[][2] = {{0, 0}, {1, 0},{3, 0},{4, 0},{0, 4}, {4, 4}};
 int extendedInEven[][2] = {{0, 1}, {1, 1}, {1, 0}, {0, -1}, {-1, 0}, {-1, 1}};
@@ -146,6 +149,7 @@ void GameNodeContainer::composeBiggerGrid(GridNode * targetNode){
 
 	//更新分数，这里的分数叠加方式是自己定义的
 	updateScore(_score += _resultGrids.size() * targetNode->getNum());
+	SimpleAudioEngine::getInstance()->playEffect("merge.mp3");
 	//生成更高的数字
 	targetNode->updateNum(targetNode->getNum() * (_resultGrids.size() >= 9 ? 9 : 3));
 
