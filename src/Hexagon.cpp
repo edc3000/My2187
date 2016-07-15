@@ -61,3 +61,28 @@ Hexagon * Hexagon::create(int sideLen, const Color4F & color){
 Point * Hexagon::getPos(){
 	return _pos;
 }
+
+//射线法检测点是否落在凸多边形内
+bool Hexagon::hitCheckPoint(const Point & pt){
+	int count = 0;
+	for(int i = 0; i < SIDE_COUNT; i++){
+		Point p1 = _pos[i];
+		Point p2 = _pos[(i + 1) % SIDE_COUNT];
+		if(p1.y == pt.y && p2.y == pt. y){
+			continue;
+		}
+		if(pt.y < MIN(p1.y, p2.y)){
+			continue;
+		}
+		if(pt.y >= MAX(p1.y, p2.y)){
+			continue;
+		}
+
+		double x = (double)(pt.y - p1.y) * (double)(p2.x - p1.x) / (double)(p2.y - p1.y) + p1.x;
+		if(x > pt.x){
+			count++;
+		}
+	}
+
+	return count % 2 == 1;
+}

@@ -21,6 +21,9 @@ public:
 	//获取正六边形的各个顶点坐标
 	Point * getPos();
 
+	//判定检测，射线法检测点是否落在凸多边形内
+	bool hitCheckPoint(const Point & pt);
+
 	static Hexagon * create(int SideLen, const Color4F & bgColor);
 private:
 	//边长
