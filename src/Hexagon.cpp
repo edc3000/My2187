@@ -1,5 +1,8 @@
 #include "Hexagon.h"
- 
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
+
 //正六边形的6个顶点
 static int pointConfig[][2] = {{1, 1}, {2, 0}, {1, -1}, {-1, -1}, {-2, 0}, {-1, 1}};
 
@@ -82,6 +85,10 @@ bool Hexagon::hitCheckPoint(const Point & pt){
 		if(x > pt.x){
 			count++;
 		}
+	}
+
+	if (count % 2 == 1) {
+		SimpleAudioEngine::getInstance()->playEffect("touch.mp3");
 	}
 
 	return count % 2 == 1;
