@@ -1,6 +1,7 @@
 #include "GamePauseLayer.h"
+#include "LoadingScene.h"
 
-bool gamePauseLayer::init(){
+bool GamePauseLayer::init(){
 	if (!Layer::init()){
 		return false;
 	}
@@ -9,15 +10,19 @@ bool gamePauseLayer::init(){
 	bg->setPosition(VISIBLE_SIZE.width / -2, VISIBLE_SIZE.height / -2);
 	this->addChild(bg);
 
-	auto restartButton = SimpleButton::create(80, "Restart", "黑体", 40, CC_CALLBACK_0(gamePauseLayer::onClickRestart, this));
-	restartButton->setPosition(0, VISIBLE_SIZE.height / 8);
-	this->addChild(restartButton);
-
-	auto backButton = SimpleButton::create(80, "Back", "黑体", 40, CC_CALLBACK_0(gamePauseLayer::onClickBack, this));
-	backButton->setPosition(-VISIBLE_SIZE.width / 4, -VISIBLE_SIZE.height / 8);
+	auto backButton = SimpleButton::create(80, "Back", "黑体", 40, CC_CALLBACK_0(GamePauseLayer::onClickBack, this));
+	backButton->setPosition(-VISIBLE_SIZE.width / 4, VISIBLE_SIZE.height / 8);
 	this->addChild(backButton);
 
-	auto exitButton = SimpleButton::create(80, "Exit", "黑体", 40, CC_CALLBACK_0(gamePauseLayer::onClickExit, this));
+	auto menuButton = SimpleButton::create(80, "Menu", "黑体", 40, CC_CALLBACK_0(GamePauseLayer::onClickMenu, this));
+	menuButton->setPosition(VISIBLE_SIZE.width / 4, VISIBLE_SIZE.height / 8);
+	this->addChild(menuButton);
+
+	auto restartButton = SimpleButton::create(80, "Restart", "黑体", 40, CC_CALLBACK_0(GamePauseLayer::onClickRestart, this));
+	restartButton->setPosition(-VISIBLE_SIZE.width / 4, -VISIBLE_SIZE.height / 8);
+	this->addChild(restartButton);
+
+	auto exitButton = SimpleButton::create(80, "Exit", "黑体", 40, CC_CALLBACK_0(GamePauseLayer::onClickExit, this));
 	exitButton->setPosition(VISIBLE_SIZE.width / 4, -VISIBLE_SIZE.height / 8);
 	this->addChild(exitButton);
 
@@ -26,19 +31,24 @@ bool gamePauseLayer::init(){
 	return true;
 }
 
-void gamePauseLayer::onClickRestart(){
+void GamePauseLayer::onClickRestart(){
 	((GameScene *)this->getParent())->restart();
 	this->removeFromParent();
 }
 
-void gamePauseLayer::onClickExit()
+void GamePauseLayer::onClickExit()
 {
 	((GameScene *)this->getParent())->exitGame();
 	this->removeFromParent();
 }
 
-void gamePauseLayer::onClickBack()
+void GamePauseLayer::onClickBack()
 {
 	((GameScene *)this->getParent())->backGame();
 	this->removeFromParent();
+}
+
+void GamePauseLayer::onClickMenu()
+{
+	Director::getInstance()->replaceScene(TransitionSlideInL::create(0.5, LoadingScene::createScene()));
 }

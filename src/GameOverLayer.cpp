@@ -1,4 +1,5 @@
 #include "GameOverLayer.h"
+#include "LoadingScene.h"
 
 bool GameOverLayer::init(){
 	if(!Layer::init()){ 
@@ -10,12 +11,16 @@ bool GameOverLayer::init(){
 	this->addChild(bg);
 
 	auto restartButton = SimpleButton::create(80, "Restart", "ºÚÌå", 40, CC_CALLBACK_0(GameOverLayer::onClickRestart, this));
-	restartButton->setPosition(0, VISIBLE_SIZE.height / 5);
+	restartButton->setPosition(0, VISIBLE_SIZE.height / 8);
 	this->addChild(restartButton);
 
 	auto exitButton = SimpleButton::create(80, "Exit", "ºÚÌå", 40, CC_CALLBACK_0(GameOverLayer::onClickExit, this));
-	exitButton->setPosition(0, -VISIBLE_SIZE.height / 5);
+	exitButton->setPosition(VISIBLE_SIZE.width / 4, -VISIBLE_SIZE.height / 8);
 	this->addChild(exitButton);
+
+	auto menuButton = SimpleButton::create(80, "Menu", "ºÚÌå", 40, CC_CALLBACK_0(GameOverLayer::onClickMenu, this));
+	menuButton->setPosition(-VISIBLE_SIZE.width / 4, -VISIBLE_SIZE.height / 8);
+	this->addChild(menuButton);
 
 	this->setAnchorPoint(Point::ANCHOR_MIDDLE);
 
@@ -29,6 +34,11 @@ void GameOverLayer::onClickRestart(){
 
 void GameOverLayer::onClickExit()
 {
-	((GameScene *)this->getParent())->ExitGame();
+	((GameScene *)this->getParent())->exitGame();
 	this->removeFromParent();
+}
+
+void GameOverLayer::onClickMenu()
+{
+	Director::getInstance()->replaceScene(TransitionSlideInL::create(0.5, LoadingScene::createScene()));
 }

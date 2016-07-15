@@ -9,19 +9,22 @@
 #include "GameScoreLayer.h"
 #include "GamePauseLayer.h"
 
+
 USING_NS_CC;
 
-class GameScene : Layer
+class GameScene : public Layer
 {
 public:
 	bool init();
 	CREATE_FUNC(GameScene);
 	static Scene * createScene();
 
-	void restart();
-	void gameOver();
-	void exitGame();
-	void pauseGame();
-	void backGame();
+	virtual void restart();
+	virtual void gameOver();
+	virtual void exitGame();
+	virtual void pauseGame();
+	virtual void backGame();
+private:
+	SimpleButton* _pause;
 };
 

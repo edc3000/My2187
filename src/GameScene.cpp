@@ -30,35 +30,39 @@ bool GameScene::init(){
 	container->setScoreLayer(scoreLayer);
 	this->addChild(container);
 
-	// 直接结束，测试GameOverLayer专用
-	auto result = SimpleButton::create(60, "Pause", "黑体", 30, CC_CALLBACK_0(GameScene::pauseGame, this));
-	result->setPosition(VISIBLE_SIZE.width - 60, 60);
-	this->addChild(result);
+	// 暂停按钮
+	_pause = SimpleButton::create(60, "Pause", "黑体", 30, CC_CALLBACK_0(GameScene::pauseGame, this));
+	_pause->setPosition(VISIBLE_SIZE.width - 60, 60);
+	this->addChild(_pause);
 
 	return true;
 }
 
 void GameScene::restart(){
 	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(container);
+	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(_pause);
 	container->restart();
 }
 
 void GameScene::gameOver(){
 	auto gameOverLayer = GameOverLayer::create();
 	Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(container);
+	Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(_pause);
 	gameOverLayer->setPosition(VISIBLE_SIZE.width / 2, VISIBLE_SIZE.height / 2);
 	this->addChild(gameOverLayer);
 }
 
 void GameScene::pauseGame(){
-	auto gamePauseLayer = gamePauseLayer::create();
+	auto gamePauseLayer = GamePauseLayer::create();
 	Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(container);
+	Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(_pause);
 	gamePauseLayer->setPosition(VISIBLE_SIZE.width / 2, VISIBLE_SIZE.height / 2);
 	this->addChild(gamePauseLayer);
 }
 
 void GameScene::backGame(){
 	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(container);
+	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(_pause);
 }
 
 Scene * GameScene::createScene(){

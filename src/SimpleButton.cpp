@@ -31,7 +31,7 @@ bool SimpleButton::init(){
 
 	//触摸的监听事件
 	_eventListener = EventListenerTouchOneByOne::create();
-	_eventListener->setSwallowTouches(true);
+	//_eventListener->setSwallowTouches(true);
 	//C++11的lambda
 	_eventListener->onTouchBegan = [=](Touch * tou, Event * evt){
 		auto target = static_cast<Node *>(evt->getCurrentTarget());

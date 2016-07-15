@@ -5,6 +5,7 @@
 #include "SimpleButton.h"
 #include "GameScene.h"
 
+
 USING_NS_CC;
 
 class GameOverLayer : public Layer
@@ -16,5 +17,6 @@ public:
 private:
 	void onClickRestart();
 	void onClickExit();
+	void onClickMenu();
 };
 

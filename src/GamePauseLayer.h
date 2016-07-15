@@ -5,17 +5,19 @@
 #include "SimpleButton.h"
 #include "GameScene.h"
 
+
 USING_NS_CC;
 
-class gamePauseLayer : public Layer
+class GamePauseLayer : public Layer
 {
 public:
 	bool init();
 
-	CREATE_FUNC(gamePauseLayer);
+	CREATE_FUNC(GamePauseLayer);
 private:
 	void onClickRestart();
 	void onClickExit();
 	void onClickBack();
+	void onClickMenu();
 };
 
