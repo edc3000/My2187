@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "GameDefine.h"
 #include "GameScene.h" 
+#include "GameSceneTimeLimited.h"
 
 USING_NS_CC;
 
@@ -13,7 +14,8 @@ public:
 	static Scene * createScene();
 
 	void showStartGameButton();
-	void gotoStartScene();
+	void gotoNormalScene();
+	void gotoTimeScene();
 
 private:
 	Label * _lblLoading;
