@@ -24,6 +24,7 @@ bool GridNode::init(){
 	//数字部分
 	_lblNum = Label::createWithSystemFont(StringUtils::format("%d", _num), "黑体", 40);
 	_lblNum->setTextColor(Color4B(0, 0, 0, 255));
+	_lblNum->setPosition(Point(0, 0));
 	this->addChild(_lblNum, 3);
 	
 	//出现动画，慢慢放大
@@ -58,8 +59,8 @@ void GridNode::refreshView(){
 	}
 
 	_bg1->updateBgColor(GameHelper::getInstance()->getColorByNum(_num));
-	_lblNum->setTextColor(GameHelper::getInstance()->getFontColorByNum(_num));
-	_lblNum->setSystemFontSize(GameHelper::getInstance()->getFontSizeByNum(_num));
+	//_lblNum->setTextColor(GameHelper::getInstance()->getFontColorByNum(_num));
+	//_lblNum->setSystemFontSize(GameHelper::getInstance()->getFontSizeByNum(_num));
 }
 
 void GridNode::setRowAndCol(int row, int col){

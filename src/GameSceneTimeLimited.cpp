@@ -5,7 +5,7 @@ using namespace CocosDenshion;
 
 bool GameSceneTimeLimited::init(){
 
-	__super::init();
+	GameScene::init();
 
 	this->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
 	this->setPosition(Point::ZERO);
@@ -57,7 +57,7 @@ void GameSceneTimeLimited::setLeftTime(float t)
 
 void GameSceneTimeLimited::restart()
 {
-	__super::restart();
+	GameScene::restart();
 	setLeftTime(60);
 	_timer->setString(StringUtils::format("%.1f", _leftTime));
 	schedule(schedule_selector(GameSceneTimeLimited::updateLeftTime), 0.5f);
@@ -65,23 +65,23 @@ void GameSceneTimeLimited::restart()
 
 void GameSceneTimeLimited::gameOver()
 {
-	__super::gameOver();
+	GameScene::gameOver();
 	unschedule(schedule_selector(GameSceneTimeLimited::updateLeftTime));
 }
 
 void GameSceneTimeLimited::exitGame()
 {
-	__super::exitGame();
+	GameScene::exitGame();
 }
 
 void GameSceneTimeLimited::pauseGame()
 {
-	__super::pauseGame();
+	GameScene::pauseGame();
 	unschedule(schedule_selector(GameSceneTimeLimited::updateLeftTime));
 }
 
 void GameSceneTimeLimited::backGame()
 {
-	__super::backGame();
+	GameScene::backGame();
 	schedule(schedule_selector(GameSceneTimeLimited::updateLeftTime), 0.5f);
 }
